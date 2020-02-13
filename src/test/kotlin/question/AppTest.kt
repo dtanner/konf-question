@@ -1,21 +1,19 @@
 package question
 
 import io.kotlintest.shouldBe
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.io.File
 import java.util.Collections
 
 class AppTest {
 
-    @BeforeEach
-    fun setup() {
-        setEnv(emptyMap())
-        setEnv(mapOf("OUTPUTS_OPTIONA_NAME" to "y"))
-    }
-
     @Test
     fun `config from toml only should produce x for optionA name`() {
+
+        // environment variables are set but should be ignored for this test
+        setEnv(emptyMap())
+        setEnv(mapOf("OUTPUTS_OPTIONA_NAME" to "y"))
+
         val tomlSampleFile = File(javaClass.getResource("/config.toml").toURI())
         val config = loadConfigFromTomlOnly(tomlSampleFile)
 
@@ -25,6 +23,12 @@ class AppTest {
 
     @Test
     fun `config from toml and env should produce y for optionA name`() {
+
+        // attempt to override the outputs.optionA.name property via env variable.
+        // aside from the error being thrown when run, i'm not sure this is the right property name convention.
+        setEnv(emptyMap())
+        setEnv(mapOf("OUTPUTS_OPTIONA_NAME" to "y"))
+
         val tomlSampleFile = File(javaClass.getResource("/config.toml").toURI())
         val config = loadConfigFromTomlAndEnv(tomlSampleFile)
 
