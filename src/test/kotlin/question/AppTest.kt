@@ -11,7 +11,7 @@ class AppTest {
     @BeforeEach
     fun setup() {
         setEnv(emptyMap())
-        setEnv(mapOf("OUTPUTS_OPTIONA" to "y"))
+        setEnv(mapOf("OUTPUTS_OPTIONA_NAME" to "y"))
     }
 
     @Test
